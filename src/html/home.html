@@ -66,6 +66,6 @@
         const data = await loadData(user.uid);
 
         welcText.innerHTML = `<h1 style="font-size:400%;" class="center" style=" color: #5ac0ff">Welcome, ${data.uName}</h1>`;
-        statText.innerHTML = `<h3>Points: ${data.points} <br> Level: ${Math.floor(data.points / 100)} </h3>`;
+        statText.innerHTML = `<h1>Points: ${data.points} <br> Level: ${Math.floor(data.points / 100)} </h1>`;
     });
 </script>
