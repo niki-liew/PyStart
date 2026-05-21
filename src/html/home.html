@@ -67,6 +67,7 @@
 
         welcText.innerHTML = `<h1 style="font-size:400%;" class="center" style=" color: #5ac0ff">Welcome, ${data.uName}</h1>`;
         
+        const uRank = await getUserRank(user.uid);
 
         const createdAt = data.createdAt;
         const ageMs = Date.now() - createdAt;
@@ -90,6 +91,8 @@
                 `;
             });
 
+            html += `<h2>You: #${uRank}<h2>`
+            
             leaderboardDiv.innerHTML = html;
         });
 
