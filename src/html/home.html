@@ -53,48 +53,63 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="..\main.js"></script>
 <script>
-    const welcText = document.getElementById("welcText");
-    const statText = document.getElementById("statText")
+const welcText = document.getElementById("welcText");
+const statText = document.getElementById("statText");
+const leaderboardDiv = document.getElementById("leaderboard");
 
-    auth.onAuthStateChanged(async user => {
+auth.onAuthStateChanged(async user => {
 
-        if (!user) {
-            window.location.href = "logIn.html";
-            return;
-        }
+    if (!user) {
+        window.location.href = "logIn.html";
+        return;
+    }
 
-        const data = await loadData(user.uid);
+    // 🚀 run everything at the same time (FAST)
+    const dataPromise = loadData(user.uid);
+    const rankPromise = getUserRank(user.uid);
+    const leaderboardPromise = loadLeaderboard();
 
-        welcText.innerHTML = `<h1 style="font-size:400%;" class="center" style=" color: #5ac0ff">Welcome, ${data.uName}</h1>`;
-        
-        const uRank = await getUserRank(user.uid);
+    const [data, uRank, leaderboard] =
+        await Promise.all([dataPromise, rankPromise, leaderboardPromise]);
 
-        const createdAt = data.createdAt;
-        const ageMs = Date.now() - createdAt;
-        const ageDays = Math.floor(ageMs / (1000 * 60 * 60 * 24));
+    // =========================
+    // 👋 WELCOME TEXT
+    // =========================
+    welcText.innerHTML =
+        `<h1 style="font-size:400%;">Welcome, ${data.uName || "User"}</h1>`;
 
-        statText.innerHTML = `<h1>Account Age: ${ageDays} Days <br> <br> <br> Points: ${data.points} <br> Level: ${Math.floor(data.points / 100)} </h1>`;
-    
-        const leaderboardDiv = document.getElementById("leaderboard");
+    // =========================
+    // ⏱ ACCOUNT AGE + STATS
+    // =========================
+    const ageMs = Date.now() - (data.createdAt || Date.now());
+    const ageDays = Math.floor(ageMs / (1000 * 60 * 60 * 24));
 
-        loadLeaderboard().then(users => {
+    const points = data.points || 0;
 
-            let html = "<h1>Leaderboard (Points)</h1>";
+    statText.innerHTML = `
+        <h1>
+            Account Age: ${ageDays} Days <br><br>
+            Points: ${points} <br>
+            Level: ${Math.floor(points / 100)}
+        </h1>
+    `;
 
-            users.forEach((user, index) => {
+    // =========================
+    // 🏆 LEADERBOARD
+    // =========================
+    let html = "<h1>Leaderboard (Points)</h1>";
 
-                html += `
-                    <p>
-                        #${index + 1}
-                        ${user.uName}: ${user.points || 0}
-                    </p>
-                `;
-            });
+    html += `<h2>Your Rank: #${uRank || "?"} (${data.uName})</h2>`;
 
-            html += `<h2>You: #${uRank}<h2>`
-            
-            leaderboardDiv.innerHTML = html;
-        });
-
+    leaderboard.forEach((u, index) => {
+        html += `
+            <p>
+                #${index + 1}
+                ${u.uName || "Unknown"}: ${u.points || 0}
+            </p>
+        `;
     });
+
+    leaderboardDiv.innerHTML = html;
+});
 </script>
