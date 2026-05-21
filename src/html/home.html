@@ -72,23 +72,20 @@
         const ageMs = Date.now() - createdAt;
         const ageDays = Math.floor(ageMs / (1000 * 60 * 60 * 24));
 
-        console.log(ageDays);
-
         statText.innerHTML = `<h1>Account Age: ${ageDays} Days <br> <br> <br> Points: ${data.points} <br> Level: ${Math.floor(data.points / 100)} </h1>`;
     
         const leaderboardDiv = document.getElementById("leaderboard");
 
         loadLeaderboard().then(users => {
 
-            let html = "<h1>Leaderboard</h1>";
+            let html = "<h1>Leaderboard (Points)</h1>";
 
             users.forEach((user, index) => {
 
                 html += `
                     <p>
                         #${index + 1}
-                        ${user.uName}
-                        - ${user.points || 0}
+                        ${user.uName}: ${user.points || 0}
                     </p>
                 `;
             });

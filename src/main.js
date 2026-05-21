@@ -110,3 +110,23 @@ async function loadLeaderboard() {
 
     return leaderboard;
 }
+
+async function getUserRank(uid) {
+
+    const snapshot = await db.collection("users")
+        .orderBy("points", "desc")
+        .get();
+
+    let rank = 1;
+
+    for (const doc of snapshot.docs) {
+
+        if (doc.id === uid) {
+            return rank;
+        }
+
+        rank++;
+    }
+
+    return null;
+}
