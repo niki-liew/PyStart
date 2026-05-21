@@ -94,3 +94,19 @@ function popup(message) {
 
   document.body.appendChild(popup);
 }
+
+async function loadLeaderboard() {
+
+    const snapshot = await db.collection("users")
+        .orderBy("points", "desc")
+        .limit(10)
+        .get();
+
+    const leaderboard = [];
+
+    snapshot.forEach(doc => {
+        leaderboard.push(doc.data());
+    });
+
+    return leaderboard;
+}
