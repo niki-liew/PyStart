@@ -39,7 +39,7 @@
         </div>
 
         <div class="divBackWanabe">
-                e
+            <div id="leaderboard"></div>
         </div>
     </div>
 
@@ -75,5 +75,26 @@
         console.log(ageDays);
 
         statText.innerHTML = `<h1>Account Age: ${ageDays} Days <br> <br> <br> Points: ${data.points} <br> Level: ${Math.floor(data.points / 100)} </h1>`;
+    
+        const leaderboardDiv = document.getElementById("leaderboard");
+
+        loadLeaderboard().then(users => {
+
+            let html = "<h1>Leaderboard</h1>";
+
+            users.forEach((user, index) => {
+
+                html += `
+                    <p>
+                        #${index + 1}
+                        ${user.uName}
+                        - ${user.points || 0}
+                    </p>
+                `;
+            });
+
+            leaderboardDiv.innerHTML = html;
+        });
+
     });
 </script>
