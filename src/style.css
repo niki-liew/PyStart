@@ -71,6 +71,10 @@
 }
 
 /* TALK2MEARTH RIGHT BELLLOW HERE */
+.input,
+.output {
+    flex: 1;
+}
 
 button {
     display: inline-block;
