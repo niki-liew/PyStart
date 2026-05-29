@@ -1,7 +1,7 @@
 const API_KEY = "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";
 
 const MODEL =
-    "llama-3.1-8b-instant";
+    "llama-3.3-70b-versatile";
 
 
 
@@ -52,7 +52,7 @@ async function sendMessage(userMessage) {
 You are a coding assistant chatbot.
 
 Your job is to:
-- review code
+- review python code
 - debug errors
 - explain programming concepts
 - help improve bad code
