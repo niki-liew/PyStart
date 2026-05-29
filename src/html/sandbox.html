@@ -26,7 +26,7 @@
             
 
             <div class="align-self-center m-3">
-                <button type="button" class="btn btn-success" onclick="evaluatePython()">
+                <button type="button" class="btn btn-success" onclick="evaluatePython(); run()">
                     <h5>Run</h5>
                 </button>
             </div>
@@ -69,10 +69,19 @@
     const botOutText = document.getElementById("aiSpam")
     const uText = document.getElementById("code")
 
-    while (true)
-    {
-        await sleep(5000)
+    // uText.addEventListener("input", async () => {
 
-        botOutText.innerHTML = await sendMessage("user has coded: " + uText.value + ". comment on this code in prose in less than 35 words, unless there is an issue that cannot be explained in less than 35 words. in that case, use as many words as required. just remember to write in prose")
+    
+    
+    // }
+
+    async function run()
+    {
+        console.log(uText.value)
+        botOutText.innerHTML = await sendMessage(
+            "user has coded: " + editor.getValue() + ". comment on this code in prose in less than 35 words, unless there is an issue that cannot be explained in less than 35 words. in that case, use as many words as required. just remember to write in prose"
+        );
     }
+
+
 </script>
