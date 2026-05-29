@@ -67,9 +67,12 @@
 
 <script>
     const botOutText = document.getElementById("aiSpam")
+    const uText = document.getElementById("code")
 
-    async function SendMsgBruh(userMessage)
+    while (true)
     {
-        botOutText.innerHTML = await sendMessage(userMessage)
+        await sleep(5000)
+
+        botOutText.innerHTML = await sendMessage("user has coded: " + uText.value + ". comment on this code in prose in less than 35 words, unless there is an issue that cannot be explained in less than 35 words. in that case, use as many words as required. just remember to write in prose")
     }
 </script>

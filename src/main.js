@@ -130,7 +130,3 @@ async function getUserRank(uid) {
 
     return null;
 }
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
