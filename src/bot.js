@@ -1,4 +1,4 @@
-
+const API_KEY = window.API_KEY
 
 const MODEL =
     "llama-3.3-70b-versatile";
