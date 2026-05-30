@@ -1,4 +1,4 @@
-const API_KEY = "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";
+
 
 const MODEL =
     "llama-3.3-70b-versatile";
