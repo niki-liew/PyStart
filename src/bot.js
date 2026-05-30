@@ -31,102 +31,22 @@ function saveMemory() {
 
 
 
-async function sendMessage(userMessage) {
+async function sendMessage(message) {
 
-    // save user message
-    recentMessages.push({
-        role: "user",
-        content: userMessage
-    });
-
-
-
-    // build message list
-    const messages = [
-
-        {
-            role: "system",
-
-            content:
-`
-You are a coding assistant chatbot.
-
-Your job is to:
-- review python code
-- debug errors
-- explain programming concepts
-- help improve bad code
-- suggest fixes and improvements
-
-Be concise and helpful.
-
-Conversation memory:
-${memorySummary}
-`
+    const res = await fetch("https://niki-is-the-king.doctorindustries.workers.dev/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
         },
-
-        ...recentMessages
-    ];
-
-
-
-    // send request
-    const response =
-        await fetch(
-            "https://api.groq.com/openai/v1/chat/completions",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json",
-
-                    "Authorization":
-                        `Bearer ${API_KEY}`
-                },
-
-                body: JSON.stringify({
-
-                    model: MODEL,
-
-                    messages: messages
-                })
-            }
-        );
-
-
-
-    const data =
-        await response.json();
-
-    const reply =
-        data.choices[0]
-        .message.content;
-
-
-
-    // save assistant reply
-    recentMessages.push({
-        role: "assistant",
-        content: reply
+        body: JSON.stringify({ message })
     });
 
+    const data = await res.json();
 
+    console.log("RAW WORKER RESPONSE:", data);
 
-    // summarise old memory occasionally
-    if (recentMessages.length > 10) {
-
-        await summariseMemory();
-    }
-
-
-
-    saveMemory();
-
-    return reply;
+    return data.choices[0].message.content;
 }
-
-
 
 async function summariseMemory() {
 

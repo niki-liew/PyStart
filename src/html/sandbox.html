@@ -60,7 +60,6 @@
         integrity="sha512-/mavDpedrvPG/0Grj2Ughxte/fsm42ZmZWWpHz1jCbzd5ECv8CB7PomGtw0NAnhHmE/lkDFkRMupjoohbKNA1Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src='..\sandbox.js'></script>
-    <script src="..\config.js"></script>
     <script src='..\bot.js'></script>
 </body>
 
@@ -78,7 +77,6 @@
 
     async function run()
     {
-        console.log(uText.value)
         botOutText.innerHTML = await sendMessage(
             "user has coded: " + editor.getValue() + ". comment on this code in prose in less than 35 words, unless there is an issue that cannot be explained in less than 35 words. in that case, use as many words as required. just remember to write in prose"
         );
