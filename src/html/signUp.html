@@ -71,6 +71,7 @@ button.addEventListener("click", async () => {
         await updateData(user.uid, {
             uName: username || "anon",
             points: 0,
+            onLesson: '1',
         });
 
         window.location.href = "home.html"
