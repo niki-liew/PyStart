@@ -38,7 +38,7 @@
                             <h5>Run</h5>
                         </button>
 
-                        <button type="button" class="btn btn-success" onclick="">
+                        <button type="button" class="btn btn-success" onclick="submit()">
                             <h5>Submit Code when Completed Assignment</h5>
                         </button>
                     </div>
@@ -90,7 +90,7 @@
     const botOutText = document.getElementById("aiSpam")
     const uText = document.getElementById("code")
 
-    var startSend = "The following text below is a summary of the content taught in this lesson to the user, the content taught through a video. You will be given what the assignment was at the end of the lesson. Now, armed with the code the user produced, rate the code on a scale of 1 to 100, do not return any text, only a number from 1 to 10. "
+    var startSend = "The following text below is a summary of the content taught in this lesson to the user, the content taught through a video. You will be given what the assignment was at the end of the lesson. Now, armed with the code the user produced, rate the code on a scale of 1 to 100, do not return any text, only a number from 1 to 100. "
     var lessonContext = ""
 
     async function run()
@@ -98,6 +98,11 @@
         botOutText.innerHTML = await sendMessage(
             "user has coded: " + editor.getValue() + ". comment on this code in prose in less than 35 words, unless there is an issue that cannot be explained in less than 35 words. in that case, use as many words as required. just remember to write in prose"
         );
+    }
+
+    async function submit()
+    {
+        botOutText.innerHTML = "You have scored a " + await sendMessage("This is the code that the user has written: " + editor.getValue() + " THIS IS THE END OF THE CODE. " + startSend + " " + lessonContext) + "/100 for this assignment!"
     }
 
     function changeVideo(url) {
@@ -126,7 +131,7 @@
         {
             changeVideo("https://youtu.be/dmh_XVcGz_s");
 
-            lessonContext = ```
+            lessonContext = `
             
             This video serves as an introductory lesson on variables in Python, using the analogy of a bucket to help beginners understand how information is stored and retrieved in a program.
 
@@ -142,13 +147,13 @@ Naming Rules: Variable names cannot contain spaces. Use underscores or camelCase
 
 The video concludes with a brief practice task: creating variables with interesting names and assigning them values to get comfortable with the syntax.
             
-            ```
+            `
         }
         if (onLesson == 2)
         {
             changeVideo("https://youtu.be/pSkhA8oYTVc");
 
-            lessonContext = ```
+            lessonContext = `
             This video serves as a beginner's guide to using the print function in Python, part of the PyStart series. It covers the basics of displaying text in the terminal and managing different data types.
 
 Key Takeaways:
@@ -162,13 +167,13 @@ Verifying Types: You can use the type() function to check the type of any value 
 
 Task for Learners:
 The video concludes with a challenge for viewers: create variables of different types (string, integer, boolean) and print them together in a creative way, using the conversion functions where necessary to avoid errors (14:14 - 16:01).
-            ```
+            `
         }
         if (onLesson == 3)
         {
             changeVideo("https://youtu.be/umwAmgUYsRU");
 
-            lessonContext = ```
+            lessonContext = `
             
 This lesson provides an introduction to performing mathematical operations with integer variables in Python. Key highlights include:
 
@@ -180,13 +185,13 @@ Data Types: A crucial takeaway is that the input() function always returns a str
 
 The video concludes with a practical task to build a simple calculator, encouraging students to apply these concepts to real-world scenarios like distributing items (18:13 - 19:12).
 
-            ```
+            `
         }
         if (onLesson == 4)
         {
             changeVideo("https://youtu.be/4z12XX09gZ0");
 
-            lessonContext = ```
+            lessonContext = `
             
 This video serves as an introductory lesson on if statements in Python, explaining how they are used for decision-making in programming.
 
@@ -202,13 +207,13 @@ Elif Statements (28:40 - 30:54): Introduction to elif (else if) for checking mul
 Practical Takeaway:
 By the end of the video, the instructor tasks viewers with creating a program that uses if, elif, and else statements alongside various logic operators to solve a creative decision-making problem, such as checking if a user has enough rizz points to enter a party.
 
-            ```
+            `
         }
         if (onLesson == 5)
         {
             changeVideo("https://youtu.be/rBRT-udIwMU");
 
-            lessonContext = ```
+            lessonContext = `
             
 This video serves as an introductory lesson on while loops in Python, covering their syntax, logic, and control mechanisms. 
 
@@ -221,13 +226,13 @@ Infinite Loops and break: The video explains how an infinite loop occurs when a 
 
 The video concludes with a brief mention that learners are encouraged to practice by creating their own creative while loop tasks (10:13 - 10:46).
 
-            ```
+            `
         }
         if (onLesson == 6)
         {
             changeVideo("https://youtu.be/86VFdyBO2dQ");
 
-            lessonContext = ```
+            lessonContext = `
             
 This video serves as an introductory lesson on lists and dictionaries in Python, part of the PyStart series. The instructor uses the analogy of a book to explain these data structures.
 
@@ -249,13 +254,13 @@ Method: pop() is also used here to remove a specific key and return its associat
 Assignment (23:18 - 26:03)
 The video concludes with a programming challenge: create a project that uses lists or dictionaries, such as a shopping list manager or a party invitation tracker. The instructor encourages learners to utilize the PyStart AI support system if they face difficulties.
 
-            ```
+            `
         }
         if (onLesson == 7)
         {
             changeVideo("https://youtu.be/QOzM3NYjpkE");
 
-            lessonContext = ```
+            lessonContext = `
             This video serves as a beginner's guide to using for loops in Python, specifically explaining their application with lists and dictionaries.
 
 Key Concepts Covered:
@@ -265,13 +270,13 @@ Working with Dictionaries (4:41 - 9:50):
 When looping through a dictionary, the default behavior iterates over the keys.
 To access both the keys and values, the instructor shows the importance of the .items() method (8:02). This method converts the dictionary into a format that allows the loop to unpack pairs of data, which the instructor identifies as a tuple.
 Assignment (9:58 - 11:24): The instructor suggests a practice challenge: create a program that iterates through a collection of people and removes specific items (like everyone named "Bob") using a for loop, noting that remove() only handles the first instance found.
-            ```
+            `
         }
         if (onLesson == 8)
         {
             changeVideo("https://youtu.be/-fhsyFfxkT8");
 
-            lessonContext = ```
+            lessonContext = `
             This video serves as a beginner's guide to creating and using functions in Python. Key concepts covered include:
 
 Defining Functions (0:30): You create a function using the def keyword, followed by the function name, parentheses, and a colon.
@@ -281,7 +286,7 @@ Recursion (6:10): The instructor introduces the concept of a recursive functionâ
 
 Assignment: The instructor encourages viewers to practice by building a comprehensive program that combines all previous lesson knowledgeâ€”such as a simple text-based terminal program featuring a password prompt and various tools like a calculator or games (8:07).
 
-            ```
+            `
         }
     });
 </script>
