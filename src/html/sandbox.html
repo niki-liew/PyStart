@@ -104,8 +104,10 @@
     async function submit()
     {
         if (debounce) {
+            debounce = false
         popup("You have scored a " + await sendMessage("This is the code that the user has written: " + editor.getValue() + " THIS IS THE END OF THE CODE. " + startSend + " " + lessonContext) + "/100 for this assignment! Please exit this lesson.")
-        }
+        
+    }
     }
 
     function changeVideo(url) {
