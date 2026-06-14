@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <style>
+        .CodeMirror{font-family:monospace;height:50vh;color:#000;direction:ltr}.CodeMirror-lines{padding:4px 0}.CodeMirror pre.CodeMirror-line,.CodeMirror pre.CodeMirror-line-like{padding:0 4px}.CodeMirror-gutter-filler,.CodeMirror-scrollbar-filler{background-color:#fff}.CodeMirror-gutters{border-right:1px solid #ddd;background-color:#f7f7f7;white-space:nowrap}.CodeMirror-linenumber{padding:0 3px 0 5px;min-width:20px;text-align:right;color:#999;white-space:nowrap}.CodeMirror-guttermarker{color:#000}.CodeMirror-guttermarker-subtle{color:#999}.CodeMirror-cursor{border-left:1px solid #000;border-right:none;width:0}.CodeMirror div.CodeMirror-secondarycursor{border-left:1px solid silver}.cm-fat-cursor .CodeMirror-cursor{width:auto;border:0!important;background:#7e7}.cm-fat-cursor div.CodeMirror-cursors{z-index:1}.cm-fat-cursor-mark{background-color:rgba(20,255,20,.5);-webkit-animation:blink 1.06s steps(1) infinite;-moz-animation:blink 1.06s steps(1) infinite;animation:blink 1.06s steps(1) infinite}.cm-animate-fat-cursor{width:auto;border:0;-webkit-animation:blink 1.06s steps(1) infinite;-moz-animation:blink 1.06s steps(1) infinite;animation:blink 1.06s steps(1) infinite;background-color:#7e7}@-moz-keyframes blink{50%{background-color:transparent}}@-webkit-keyframes blink{50%{background-color:transparent}}@keyframes blink{50%{background-color:transparent}}.cm-tab{display:inline-block;text-decoration:inherit}.CodeMirror-rulers{position:absolute;left:0;right:0;top:-50px;bottom:0;overflow:hidden}.CodeMirror-ruler{border-left:1px solid #ccc;top:0;bottom:0;position:absolute}.cm-s-default .cm-header{color:#00f}.cm-s-default .cm-quote{color:#090}.cm-negative{color:#d44}.cm-positive{color:#292}.cm-header,.cm-strong{font-weight:700}.cm-em{font-style:italic}.cm-link{text-decoration:underline}.cm-strikethrough{text-decoration:line-through}.cm-s-default .cm-keyword{color:#708}.cm-s-default .cm-atom{color:#219}.cm-s-default .cm-number{color:#164}.cm-s-default .cm-def{color:#00f}.cm-s-default .cm-variable-2{color:#05a}.cm-s-default .cm-type,.cm-s-default .cm-variable-3{color:#085}.cm-s-default .cm-comment{color:#a50}.cm-s-default .cm-string{color:#a11}.cm-s-default .cm-string-2{color:#f50}.cm-s-default .cm-meta{color:#555}.cm-s-default .cm-qualifier{color:#555}.cm-s-default .cm-builtin{color:#30a}.cm-s-default .cm-bracket{color:#997}.cm-s-default .cm-tag{color:#170}.cm-s-default .cm-attribute{color:#00c}.cm-s-default .cm-hr{color:#999}.cm-s-default .cm-link{color:#00c}.cm-s-default .cm-error{color:red}.cm-invalidchar{color:red}.CodeMirror-composing{border-bottom:2px solid}div.CodeMirror span.CodeMirror-matchingbracket{color:#0b0}div.CodeMirror span.CodeMirror-nonmatchingbracket{color:#a22}.CodeMirror-matchingtag{background:rgba(255,150,0,.3)}.CodeMirror-activeline-background{background:#e8f2ff}.CodeMirror{position:relative;overflow:hidden;background:#fff}.CodeMirror-scroll{overflow:scroll!important;margin-bottom:-30px;margin-right:-30px;padding-bottom:30px;height:100%;outline:0;position:relative}.CodeMirror-sizer{position:relative;border-right:30px solid transparent}.CodeMirror-gutter-filler,.CodeMirror-hscrollbar,.CodeMirror-scrollbar-filler,.CodeMirror-vscrollbar{position:absolute;z-index:6;display:none}.CodeMirror-vscrollbar{right:0;top:0;overflow-x:hidden;overflow-y:scroll}.CodeMirror-hscrollbar{bottom:0;left:0;overflow-y:hidden;overflow-x:scroll}.CodeMirror-scrollbar-filler{right:0;bottom:0}.CodeMirror-gutter-filler{left:0;bottom:0}.CodeMirror-gutters{position:absolute;left:0;top:0;min-height:100%;z-index:3}.CodeMirror-gutter{white-space:normal;height:100%;display:inline-block;vertical-align:top;margin-bottom:-30px}.CodeMirror-gutter-wrapper{position:absolute;z-index:4;background:0 0!important;border:none!important}.CodeMirror-gutter-background{position:absolute;top:0;bottom:0;z-index:4}.CodeMirror-gutter-elt{position:absolute;cursor:default;z-index:4}.CodeMirror-gutter-wrapper ::selection{background-color:transparent}.CodeMirror-gutter-wrapper ::-moz-selection{background-color:transparent}.CodeMirror-lines{cursor:text;min-height:1px}.CodeMirror pre.CodeMirror-line,.CodeMirror pre.CodeMirror-line-like{-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;border-width:0;background:0 0;font-family:inherit;font-size:inherit;margin:0;white-space:pre;word-wrap:normal;line-height:inherit;color:inherit;z-index:2;position:relative;overflow:visible;-webkit-tap-highlight-color:transparent;-webkit-font-variant-ligatures:contextual;font-variant-ligatures:contextual}.CodeMirror-wrap pre.CodeMirror-line,.CodeMirror-wrap pre.CodeMirror-line-like{word-wrap:break-word;white-space:pre-wrap;word-break:normal}.CodeMirror-linebackground{position:absolute;left:0;right:0;top:0;bottom:0;z-index:0}.CodeMirror-linewidget{position:relative;z-index:2;padding:.1px}.CodeMirror-rtl pre{direction:rtl}.CodeMirror-code{outline:0}.CodeMirror-gutter,.CodeMirror-gutters,.CodeMirror-linenumber,.CodeMirror-scroll,.CodeMirror-sizer{-moz-box-sizing:content-box;box-sizing:content-box}.CodeMirror-measure{position:absolute;width:100%;height:0;overflow:hidden;visibility:hidden}.CodeMirror-cursor{position:absolute;pointer-events:none}.CodeMirror-measure pre{position:static}div.CodeMirror-cursors{visibility:hidden;position:relative;z-index:3}div.CodeMirror-dragcursors{visibility:visible}.CodeMirror-focused div.CodeMirror-cursors{visibility:visible}.CodeMirror-selected{background:#d9d9d9}.CodeMirror-focused .CodeMirror-selected{background:#d7d4f0}.CodeMirror-crosshair{cursor:crosshair}.CodeMirror-line::selection,.CodeMirror-line>span::selection,.CodeMirror-line>span>span::selection{background:#d7d4f0}.CodeMirror-line::-moz-selection,.CodeMirror-line>span::-moz-selection,.CodeMirror-line>span>span::-moz-selection{background:#d7d4f0}.cm-searching{background-color:#ffa;background-color:rgba(255,255,0,.4)}.cm-force-border{padding-right:.1px}@media print{.CodeMirror div.CodeMirror-cursors{visibility:hidden}}.cm-tab-wrap-hack:after{content:''}span.CodeMirror-selectedtext{background:0 0}
+/*# sourceMappingURL=codemirror.min.css.map */  
+    </style>
+
+    <!--i konw what im doing with this-->
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script>
+</head>
+
+<body class="bgDarkBlue">
+    <div class="container-fluid darkBlue" style="height: max-content;">
+
+        <div class="d-flex flex-column">
+            <div class="sandbox">
+                <section class="input">
+                    <div>
+                        <textarea id="code" name="code"></textarea>
+                    </div>
+                </section>
+
+                <div style="width: 50vw;">
+                    <div class="align-self-center m-3">
+                        <button type="button" class="btn btn-success" onclick="evaluatePython(); run()">
+                            <h5>Run</h5>
+                        </button>
+
+                        <button type="button" class="btn btn-success" onclick="submit()">
+                            <h5>Submit Code when Completed Assignment</h5>
+                        </button>
+
+                        <button type="button" class="btn btn-success" onclick="window.location.href = 'home.html'">
+                            <h5>Exit Lesson</h5>
+                        </button>
+                    </div>
+
+                    <section class="output">
+                        <div>
+                            <textarea id="output" name="output" class="w-100" rows="15">
+                        </textarea>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="sandbox">
+                <iframe style="height: 50vh;"
+                    id="youtubePlayer"
+                    width=50%
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+
+                <div class="divBackWanabe">
+                    <p id="aiSpam" style="width: 50vw;"></p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"
+    integrity="sha512-XMlgZzPyVXf1I/wbGnofk1Hfdx+zAWyZjh6c21yGo/k1zNC4Ve6xcQnTDTCHrjFGsOrVicJsBURLYktVEu/8vQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/mode/python/python.min.js"
+    integrity="sha512-/mavDpedrvPG/0Grj2Ughxte/fsm42ZmZWWpHz1jCbzd5ECv8CB7PomGtw0NAnhHmE/lkDFkRMupjoohbKNA1Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src='..\sandbox.js'></script>
+<script src='..\bot.js'></script>
+<script src="..\main.js"></script>
+
+<script>
+    const botOutText = document.getElementById("aiSpam")
+    const uText = document.getElementById("code")
+
+    var debounce = true
+    var startSend = "The following text below is a summary of the content taught in this lesson to the user, the content taught through a video. You will be given what the assignment was at the end of the lesson. Now, armed with the code the user produced, rate the code on a scale of 1 to 100, do not return any text, only a number from 1 to 100. "
+    var lessonContext = ""
+
+    async function run()
+    {
+        botOutText.innerHTML = await sendMessage(
+            "user has coded: " + editor.getValue() + ". comment on this code in prose in less than 35 words, unless there is an issue that cannot be explained in less than 35 words. in that case, use as many words as required. just remember to write in prose"
+        );
+    }
+
+    async function submit() {
+
+        if (!debounce) return;
+
+        debounce = false;
+
+        try {
+
+            const score = Number(
+                await sendMessage(
+                    "This is the code that the user has written: " +
+                    editor.getValue() +
+                    " THIS IS THE END OF THE CODE. " +
+                    startSend +
+                    " " +
+                    lessonContext
+                )
+            );
+
+            if (currentUID) {
+                await addPoints(currentUID, score);
+
+                await updateData(currentUID, {
+                    onLesson: onLesson + 1
+                });
+            }
+
+            popup(
+                "You have scored a " +
+                score +
+                "/100 for this assignment! Please exit this lesson."
+            );
+
+        } catch (err) {
+
+            console.error(err);
+
+            popup(
+                "An error occurred while grading your assignment."
+            );
+
+            debounce = true;
+        }
+    }
+
+    function changeVideo(url) {
+        const videoId = url.match(/(?:v=|youtu\.be\/)([^&?/]+)/)[1];
+
+        document.getElementById("youtubePlayer").src =
+            `https://www.youtube.com/embed/${videoId}`;
+    }
+
+    let currentUID = null;
+    let onLesson = 0;
+
+    auth.onAuthStateChanged(async user => {
+
+        if (!user) {
+            window.location.href = "logIn.html";
+            return;
+        }
+        else
+        {
+            currentUID = user.uid;
+        }
+
+        // 🚀 run everything at the same time (FAST)
+        const dataPromise = loadData(user.uid);
+
+        const [data] =
+            await Promise.all([dataPromise]);
+
+        onLesson = data.onLesson || 1;
+
+        //if no on lesson
+        if (!data.onLesson)
+        {
+            await updateData(currentUID, {
+                onLesson: 1
+            })
+        }
+
+        if (onLesson == 1)
+        {
+            changeVideo("https://youtu.be/dmh_XVcGz_s");
+
+            lessonContext = `
+            
+            This video serves as an introductory lesson on variables in Python, using the analogy of a bucket to help beginners understand how information is stored and retrieved in a program.
+
+Key Concepts Covered:
+Definition of a Variable: A variable is like a bucket where you can store different "values" (0:16-1:31). You can also view or change what is inside the bucket at any time (1:45-2:36).
+Initializing Variables: In Python, you create a variable by giving it a name and immediately assigning it a value using the equals sign (e.g., bucket = "cat") (2:51-4:06).
+Data Types: The video explains three fundamental data types in Python (5:26-7:12):
+Strings: Used for text, requiring quotation marks (e.g., "cat").
+Integers: Whole numbers, written without quotation marks.
+Booleans: Logical values representing True or False.
+Program Execution: Python reads code line-by-line from top to bottom (7:33-8:24).
+Naming Rules: Variable names cannot contain spaces. Use underscores or camelCase (e.g., best_bucket or bestBucket) as alternatives (10:11-10:52).
+
+The video concludes with a brief practice task: creating variables with interesting names and assigning them values to get comfortable with the syntax.
+            
+            `
+        }
+        if (onLesson == 2)
+        {
+            changeVideo("https://youtu.be/pSkhA8oYTVc");
+
+            lessonContext = `
+            This video serves as a beginner's guide to using the print function in Python, part of the PyStart series. It covers the basics of displaying text in the terminal and managing different data types.
+
+Key Takeaways:
+
+The Print Function: The print() function is used to send text or values to the terminal (0:00 - 0:54). You call it by writing print() and placing the desired content inside the brackets (0:58 - 1:33).
+Data Types: Python uses specific types, primarily strings (for text, must be in quotes), integers (numbers), and booleans (true/false values) (2:30 - 3:15).
+Concatenation: You can combine multiple values of the same type within a single print() call using the + operator (4:38 - 6:18).
+Type Mismatch Issues: Attempting to combine different types (like a string and an integer) will result in an error (6:30 - 8:50).
+Type Conversion: You can temporarily convert the type of a value using built-in functions like str() and int(). This is particularly useful when printing variables of different types together, such as a name (string) and an age (integer) (9:20 - 11:48).
+Verifying Types: You can use the type() function to check the type of any value (12:45 - 14:04).
+
+Task for Learners:
+The video concludes with a challenge for viewers: create variables of different types (string, integer, boolean) and print them together in a creative way, using the conversion functions where necessary to avoid errors (14:14 - 16:01).
+            `
+        }
+        if (onLesson == 3)
+        {
+            changeVideo("https://youtu.be/umwAmgUYsRU");
+
+            lessonContext = `
+            
+This lesson provides an introduction to performing mathematical operations with integer variables in Python. Key highlights include:
+
+Basic Math Operations: The video explains how to use standard operators like addition (+), subtraction (-), multiplication (), and division (/) (1:34 - 4:22). 
+Variables in Math: You learn how to store values in variables and use those variables to perform calculations, such as calculating the area of a shape (4:26 - 7:48).
+Assignment Shortcuts: The video introduces shorthand syntax for updating variables, such as +=, -=, and = (8:00 - 10:57).
+User Input: It explains how to use the input() function to take user data (11:12 - 13:30).
+Data Types: A crucial takeaway is that the input() function always returns a string, which requires conversion using int() to perform math operations correctly (14:15 - 17:58).
+
+The video concludes with a practical task to build a simple calculator, encouraging students to apply these concepts to real-world scenarios like distributing items (18:13 - 19:12).
+
+            `
+        }
+        if (onLesson == 4)
+        {
+            changeVideo("https://youtu.be/4z12XX09gZ0");
+
+            lessonContext = `
+            
+This video serves as an introductory lesson on if statements in Python, explaining how they are used for decision-making in programming.
+
+Key Concepts Covered:
+
+Logic Statements and Booleans (0:00 - 8:46): The video introduces how Python evaluates conditions to return boolean values (True or False). It covers basic comparison operators like == (equals), != (not equals), and how to invert logic using not.
+Logical Operators (8:50 - 12:35): Explanation of and (where both conditions must be true) and or (where only one condition needs to be true for the statement to be true).
+Numeric Comparisons (13:30 - 16:55): A look at mathematical comparison operators including < (less than), > (greater than), <=, and >=.
+If Statement Syntax (17:15 - 23:45): The core of the lesson explains how to structure an if statement using colons and mandatory indentation (four spaces or a tab) to define the code block that runs when the condition is met.
+Handling False Conditions (24:49 - 28:10): The video demonstrates how to handle scenarios where an if condition is false using else.
+Elif Statements (28:40 - 30:54): Introduction to elif (else if) for checking multiple conditions sequentially.
+
+Practical Takeaway:
+By the end of the video, the instructor tasks viewers with creating a program that uses if, elif, and else statements alongside various logic operators to solve a creative decision-making problem, such as checking if a user has enough rizz points to enter a party.
+
+            `
+        }
+        if (onLesson == 5)
+        {
+            changeVideo("https://youtu.be/rBRT-udIwMU");
+
+            lessonContext = `
+            
+This video serves as an introductory lesson on while loops in Python, covering their syntax, logic, and control mechanisms. 
+
+Key concepts covered:
+
+Definition of a Loop: A loop allows a program to continuously execute a block of code until a specific condition is met (0:14 - 1:11).
+Syntax and Indentation: The video explains that a while loop runs code as long as the provided condition is True. Like if statements, the code belonging to the loop must be indented by four spaces (1:31 - 2:32).
+Conditional Logic: The instructor demonstrates a countdown example where a variable bruh (initialized at 5) is decremented until it reaches zero. Once the condition becomes False (0 is not higher than 0), the loop exits (3:55 - 6:36).
+Infinite Loops and break: The video explains how an infinite loop occurs when a condition remains True forever. To exit such loops, the break statement is used to force the program to jump out of the loop immediately, regardless of the loop's condition (6:46 - 8:51).
+
+The video concludes with a brief mention that learners are encouraged to practice by creating their own creative while loop tasks (10:13 - 10:46).
+
+            `
+        }
+        if (onLesson == 6)
+        {
+            changeVideo("https://youtu.be/86VFdyBO2dQ");
+
+            lessonContext = `
+            
+This video serves as an introductory lesson on lists and dictionaries in Python, part of the PyStart series. The instructor uses the analogy of a book to explain these data structures.
+
+Lists (0:00 - 18:52)
+Lists are defined using square brackets []. Each item is stored at a specific position known as an index, starting from 0 (not 1). 
+Indexing: Access specific items by calling their index (e.g., book[0]) (4:07 - 6:53).
+Key Methods:
+append(): Adds a new item to the end of the list (8:14 - 10:00).
+index(): Returns the index of the first occurrence of a specific value (10:03 - 11:50).
+insert(): Adds an item at a specific index, shifting subsequent items (11:53 - 13:37).
+pop(): Removes and returns an item at a given index (defaults to the last item) (13:40 - 17:35).
+remove(): Deletes the first occurrence of a specific value (17:36 - 18:39).
+
+Dictionaries (18:52 - 23:11)
+Dictionaries use curly braces {} and are based on key-value pairs rather than numeric indices. 
+Keys: These act as the identifiers for your data and can be strings or numbers (19:17 - 21:30).
+Method: pop() is also used here to remove a specific key and return its associated value (22:12 - 23:08).
+
+Assignment (23:18 - 26:03)
+The video concludes with a programming challenge: create a project that uses lists or dictionaries, such as a shopping list manager or a party invitation tracker. The instructor encourages learners to utilize the PyStart AI support system if they face difficulties.
+
+            `
+        }
+        if (onLesson == 7)
+        {
+            changeVideo("https://youtu.be/QOzM3NYjpkE");
+
+            lessonContext = `
+            This video serves as a beginner's guide to using for loops in Python, specifically explaining their application with lists and dictionaries.
+
+Key Concepts Covered:
+Introduction to For Loops (0:00 - 4:40): The instructor explains that a for loop is used to iterate through a sequence (like a list) and execute code for each item. The loop runs as many times as there are items in the sequence.
+Working with Lists (0:50 - 4:10): The video demonstrates creating a list (e.g., a "book" with numbered pages) and using a for loop to print each item in that list individually.
+Working with Dictionaries (4:41 - 9:50): 
+When looping through a dictionary, the default behavior iterates over the keys.
+To access both the keys and values, the instructor shows the importance of the .items() method (8:02). This method converts the dictionary into a format that allows the loop to unpack pairs of data, which the instructor identifies as a tuple.
+Assignment (9:58 - 11:24): The instructor suggests a practice challenge: create a program that iterates through a collection of people and removes specific items (like everyone named "Bob") using a for loop, noting that remove() only handles the first instance found.
+            `
+        }
+        if (onLesson == 8)
+        {
+            changeVideo("https://youtu.be/-fhsyFfxkT8");
+
+            lessonContext = `
+            This video serves as a beginner's guide to creating and using functions in Python. Key concepts covered include:
+
+Defining Functions (0:30): You create a function using the def keyword, followed by the function name, parentheses, and a colon.
+Using Arguments (1:13): Arguments allow you to pass data into functions. The video explains that these act like form fields, allowing you to define variables within the function's scope to perform specific actions, such as printing text a set number of times (2:12 - 5:14).
+Function Calls (3:33): The code inside a function is only executed when the function is explicitly called elsewhere in your program.
+Recursion (6:10): The instructor introduces the concept of a recursive function—a function that calls itself. They demonstrate a cautionary example of what happens when a function loops infinitely until it hits a recursion depth limit (7:42).
+
+Assignment: The instructor encourages viewers to practice by building a comprehensive program that combines all previous lesson knowledge—such as a simple text-based terminal program featuring a password prompt and various tools like a calculator or games (8:07).
+
+            `
+        }
+    });
+</script>
