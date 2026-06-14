@@ -95,6 +95,7 @@
     var debounce = true
     var startSend = "The following text below is a summary of the content taught in this lesson to the user, the content taught through a video. You will be given what the assignment was at the end of the lesson. Now, armed with the code the user produced, rate the code on a scale of 1 to 100, do not return any text, only a number from 1 to 100. "
     var lessonContext = ""
+    
 
     async function run()
     {
@@ -126,7 +127,8 @@
                 await addPoints(currentUID, score);
 
                 await updateData(currentUID, {
-                    onLesson: onLesson + 1
+                    onLesson: onLesson + 1,
+                    analysis: analysis.push([select, startTime, Date.now(), score])
                 });
             }
 
@@ -158,6 +160,9 @@
     let currentUID = null;
     let select = 1;
     let onLesson = 1;
+    let analysis = []
+
+    let startTime = Date.now()
 
     auth.onAuthStateChanged(async user => {
 
@@ -178,6 +183,7 @@
 
         onLesson = data.onLesson || 1
         select = data.select || 1
+        analysis = data.analysis || []
 
         
         if (!data.select)
@@ -191,6 +197,13 @@
         {
             await updateData(currentUID, {
                 onLesson: 1
+            })
+        }
+
+        if (!data.analysis)
+        {
+            await updateData(currentUID, {
+                analysis: []
             })
         }
 
