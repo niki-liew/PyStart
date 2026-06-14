@@ -123,11 +123,13 @@
                 )
             );
 
+            analysis[`l${onLesson}`].push(startTime, Date.now(), score, '@')
+
             if (currentUID) {
                 await addPoints(currentUID, score);
 
                 await updateData(currentUID, {
-                    onLesson: onLesson + 1
+                    analysis: analysis
                 });
             }
 
@@ -158,6 +160,9 @@
 
     let currentUID = null;
     let onLesson = 0;
+    let analysis = {}
+
+    let startTime = Date.now()
 
     auth.onAuthStateChanged(async user => {
 
@@ -177,6 +182,7 @@
             await Promise.all([dataPromise]);
 
         onLesson = data.onLesson || 1;
+        analysis = data.analysis
 
         //if no on lesson
         if (!data.onLesson)
@@ -184,6 +190,33 @@
             await updateData(currentUID, {
                 onLesson: 1
             })
+        }
+
+        if (!data.analysis)
+        {
+            await updateData(currentUID, {
+                analysis: {
+                'l1': [],
+                'l2': [],
+                'l3': [],
+                'l4': [],
+                'l5': [],
+                'l6': [],
+                'l7': [],
+                'l8': [],
+                }
+            })
+
+            analysis = data.analysis || {
+                'l1': [],
+                'l2': [],
+                'l3': [],
+                'l4': [],
+                'l5': [],
+                'l6': [],
+                'l7': [],
+                'l8': [],
+            }
         }
 
         if (onLesson == 1)
