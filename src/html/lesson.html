@@ -129,6 +129,7 @@
                 await addPoints(currentUID, score);
 
                 await updateData(currentUID, {
+                    onLesson: onLesson + 1,
                     analysis: analysis
                 });
             }
