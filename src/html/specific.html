@@ -132,6 +132,14 @@
                 });
             }
 
+            if (currentUID) {
+                await addPoints(currentUID, score);
+
+                await updateData(currentUID, {
+                    analysis: analysis.push([select, startTime, Date.now(), score])
+                });
+            }
+
             popup(
                 "You have scored a " +
                 score +
