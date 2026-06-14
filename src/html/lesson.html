@@ -21,50 +21,53 @@
     <div class="container-fluid darkBlue" style="height: max-content;">
 
         <div class="d-flex flex-column">
-            <div class="sandbox">
-                <section class="input">
-                    <div>
-                        <textarea id="code" name="code"></textarea>
+            <div class="flexboxFill">
+                <div>
+
+                    <div style="width: 50vw;">
+                        <div class="align-self-center m-3">
+                            <button type="button" class="btn btn-success" onclick="evaluatePython(); run()">
+                                <h5>Run</h5>
+                            </button>
+
+                            <button type="button" class="btn btn-success" onclick="submit()">
+                                <h5>Submit</h5>
+                            </button>
+
+                            <button type="button" class="btn btn-success" onclick="window.location.href = 'home.html'">
+                                <h5>Exit Lesson</h5>
+                            </button>
+
+                            <i><p>scroll down to see AI comments</p></i>
+                        </div>
+
+                        <section class="output">
+                            <div>
+                                <textarea id="output" name="output" class="w-100" rows="15">
+                            </textarea>
+                            </div>
+                        </section>
                     </div>
-                </section>
-
-                <div style="width: 50vw;">
-                    <div class="align-self-center m-3">
-                        <button type="button" class="btn btn-success" onclick="evaluatePython(); run()">
-                            <h5>Run</h5>
-                        </button>
-
-                        <button type="button" class="btn btn-success" onclick="submit()">
-                            <h5>Submit Code when Completed Assignment</h5>
-                        </button>
-
-                        <button type="button" class="btn btn-success" onclick="window.location.href = 'home.html'">
-                            <h5>Exit Lesson</h5>
-                        </button>
-                    </div>
-
-                    <section class="output">
+                    <section class="input">
                         <div>
-                            <textarea id="output" name="output" class="w-100" rows="15">
-                        </textarea>
+                            <textarea id="code" name="code"></textarea>
                         </div>
                     </section>
-                </div>
-            </div>
 
-            <div class="sandbox">
-                <iframe style="height: 50vh;"
-                    id="youtubePlayer"
-                    width=50%
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    frameborder="0"
-                    allowfullscreen>
-                </iframe>
-
-                <div class="divBackWanabe">
-                    <p id="aiSpam" style="width: 50vw;"></p>
+                    <div class="divBackWanabe">
+                        <p id="aiSpam" style="width: 50vw;"></p>
+                    </div>
                 </div>
-                
+
+                <div>
+                    <iframe style="height: 100vh;"
+                        id="youtubePlayer"
+                        width=100%
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
         </div>
     </div>
