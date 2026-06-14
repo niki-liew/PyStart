@@ -120,7 +120,7 @@
                 )
             );
 
-            if (currentUID) {
+            if (currentUID && select == onLesson) {
                 await addPoints(currentUID, score);
 
                 await updateData(currentUID, {
@@ -154,7 +154,8 @@
     }
 
     let currentUID = null;
-    let onLesson = 0;
+    let select = 1;
+    let onLesson = 1;
 
     auth.onAuthStateChanged(async user => {
 
@@ -173,9 +174,17 @@
         const [data] =
             await Promise.all([dataPromise]);
 
-        onLesson = data.onLesson || 1;
+        onLesson = data.onLesson || 1
+        select = data.select || 1
 
-        //if no on lesson
+        
+        if (!data.select)
+        {
+            await updateData(currentUID, {
+                select: 1
+            })
+        }
+
         if (!data.onLesson)
         {
             await updateData(currentUID, {
@@ -183,7 +192,7 @@
             })
         }
 
-        if (onLesson == 1)
+        if (select == 1)
         {
             changeVideo("https://youtu.be/dmh_XVcGz_s");
 
@@ -205,7 +214,7 @@ The video concludes with a brief practice task: creating variables with interest
             
             `
         }
-        if (onLesson == 2)
+        if (select == 2)
         {
             changeVideo("https://youtu.be/pSkhA8oYTVc");
 
@@ -225,7 +234,7 @@ Task for Learners:
 The video concludes with a challenge for viewers: create variables of different types (string, integer, boolean) and print them together in a creative way, using the conversion functions where necessary to avoid errors (14:14 - 16:01).
             `
         }
-        if (onLesson == 3)
+        if (select == 3)
         {
             changeVideo("https://youtu.be/umwAmgUYsRU");
 
@@ -243,7 +252,7 @@ The video concludes with a practical task to build a simple calculator, encourag
 
             `
         }
-        if (onLesson == 4)
+        if (select == 4)
         {
             changeVideo("https://youtu.be/4z12XX09gZ0");
 
@@ -265,7 +274,7 @@ By the end of the video, the instructor tasks viewers with creating a program th
 
             `
         }
-        if (onLesson == 5)
+        if (select == 5)
         {
             changeVideo("https://youtu.be/rBRT-udIwMU");
 
@@ -284,7 +293,7 @@ The video concludes with a brief mention that learners are encouraged to practic
 
             `
         }
-        if (onLesson == 6)
+        if (select == 6)
         {
             changeVideo("https://youtu.be/86VFdyBO2dQ");
 
@@ -312,7 +321,7 @@ The video concludes with a programming challenge: create a project that uses lis
 
             `
         }
-        if (onLesson == 7)
+        if (select == 7)
         {
             changeVideo("https://youtu.be/QOzM3NYjpkE");
 
@@ -328,7 +337,7 @@ To access both the keys and values, the instructor shows the importance of the .
 Assignment (9:58 - 11:24): The instructor suggests a practice challenge: create a program that iterates through a collection of people and removes specific items (like everyone named "Bob") using a for loop, noting that remove() only handles the first instance found.
             `
         }
-        if (onLesson == 8)
+        if (select == 8)
         {
             changeVideo("https://youtu.be/-fhsyFfxkT8");
 
