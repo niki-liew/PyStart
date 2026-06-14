@@ -101,13 +101,49 @@
         );
     }
 
-    async function submit()
-    {
-        if (debounce) {
-            debounce = false
-        popup("You have scored a " + await sendMessage("This is the code that the user has written: " + editor.getValue() + " THIS IS THE END OF THE CODE. " + startSend + " " + lessonContext) + "/100 for this assignment! Please exit this lesson.")
-        
-    }
+    async function submit() {
+
+        if (!debounce) return;
+
+        debounce = false;
+
+        try {
+
+            const score = Number(
+                await sendMessage(
+                    "This is the code that the user has written: " +
+                    editor.getValue() +
+                    " THIS IS THE END OF THE CODE. " +
+                    startSend +
+                    " " +
+                    lessonContext
+                )
+            );
+
+            if (currentUID) {
+                await addPoints(currentUID, score);
+
+                await updateData(currentUID, {
+                    onLesson: onLesson + 1
+                });
+            }
+
+            popup(
+                "You have scored a " +
+                score +
+                "/100 for this assignment! Please exit this lesson."
+            );
+
+        } catch (err) {
+
+            console.error(err);
+
+            popup(
+                "An error occurred while grading your assignment."
+            );
+
+            debounce = true;
+        }
     }
 
     function changeVideo(url) {
@@ -117,11 +153,18 @@
             `https://www.youtube.com/embed/${videoId}`;
     }
 
+    let currentUID = null;
+    let onLesson = 0;
+
     auth.onAuthStateChanged(async user => {
 
         if (!user) {
             window.location.href = "logIn.html";
             return;
+        }
+        else
+        {
+            currentUID = user.uid;
         }
 
         // 🚀 run everything at the same time (FAST)
@@ -130,7 +173,15 @@
         const [data] =
             await Promise.all([dataPromise]);
 
-        const onLesson = data.onLesson || 1;
+        onLesson = data.onLesson || 1;
+
+        //if no on lesson
+        if (!data.onLesson)
+        {
+            await updateData(currentUID, {
+                onLesson: 1
+            })
+        }
 
         if (onLesson == 1)
         {

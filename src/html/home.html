@@ -85,12 +85,14 @@ auth.onAuthStateChanged(async user => {
     const ageDays = Math.floor(ageMs / (1000 * 60 * 60 * 24));
 
     const points = data.points || 0;
+    const onLesson = data.onLesson || 1
 
     statText.innerHTML = `
         <h1>
             Account Age: ${ageDays} Days <br><br>
             Points: ${points} <br>
-            Level: ${Math.floor(points / 100)}
+            Level: ${Math.floor(points / 100)} <br>
+            On Lesson: ${onLesson}
         </h1>
     `;
 

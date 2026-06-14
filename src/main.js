@@ -130,3 +130,9 @@ async function getUserRank(uid) {
 
     return null;
 }
+
+function addPoints(uid, pointsToAdd) {
+    return db.collection("users").doc(uid).update({
+        points: firebase.firestore.FieldValue.increment(pointsToAdd)
+    });
+}
