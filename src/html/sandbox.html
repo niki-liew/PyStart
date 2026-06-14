@@ -17,48 +17,42 @@
     <script src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script>
 </head>
 
-<body class="bgDarkBlue">
-    <div class="container-fluid darkBlue" style="height: max-content;">
+<body class="bgDarkBlue" style="margin:0;">
 
-        <div class="d-flex flex-column">
-            <div class="sandbox">
-                <section class="input">
-                    <div>
-                        <textarea id="code" name="code"></textarea>
-                    </div>
-                </section>
+<div class="container-fluid darkBlue" style="height: 100vh;">
 
-                <div style="width: 50vw;">
-                    <div class="align-self-center m-3">
-                        <button type="button" class="btn btn-success" onclick="evaluatePython(); run()">
-                            <h5>Run</h5>
-                        </button>
+    <div style="display: flex; height: 100%;">
 
-                        <button type="button" class="btn btn-success" onclick="window.location.href = 'home.html'">
-                            <h5>Exit</h5>
-                        </button>
-                    </div>
+        <!-- LEFT -->
+        <div style="flex: 65; min-width: 0; display: flex; flex-direction: column;">
 
-                    <section class="output">
-                        <div>
-                            <textarea id="output" name="output" class="w-100" rows="15">
-                        </textarea>
-                        </div>
-                    </section>
-                </div>
+            <div class="m-3">
+                <button class="btn btn-success" onclick="evaluatePython();run()">Run</button>
+                <button class="btn btn-success" onclick="window.location.href = 'home.html'">Exit</button>
             </div>
 
-            <div class="sandbox">
+            <section class="input">
+                <textarea id="code"></textarea>
+            </section>
 
-                <div class="divBackWanabe">
-                    <p id="aiSpam" style="width: 50vw;"></p>
-                </div>
-                
+            <section class="output">
+                <textarea id="output" class="w-100" rows="15"></textarea>
+            </section>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div style="flex: 35; min-width: 0; height: 100%;">
+            <div class="divBackWanabe" style="height: 100%;">
+                <p id="aiSpam"></p>
             </div>
         </div>
-    </div>
-</body>
 
+    </div>
+
+</div>
+
+</body>
 </html>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>

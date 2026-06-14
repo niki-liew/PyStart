@@ -24,33 +24,33 @@
             <div  style="display: flex;">
                 <div style="flex: 35; min-width: 0;">
 
-                    <div>
-                        <div class="align-self-center m-3">
-                            <button type="button" class="btn btn-success" onclick="evaluatePython(); run()">
-                                <h5>Run</h5>
-                            </button>
+                    <div class="align-self-center m-3">
+                        <button type="button" class="btn btn-success" onclick="evaluatePython(); run()">
+                            <h5>Run</h5>
+                        </button>
 
-                            <button type="button" class="btn btn-success" onclick="submit()">
-                                <h5>Submit</h5>
-                            </button>
+                        <button type="button" class="btn btn-success" onclick="submit()">
+                            <h5>Submit</h5>
+                        </button>
 
-                            <button type="button" class="btn btn-success" onclick="window.location.href = 'home.html'">
-                                <h5>Exit Lesson</h5>
-                            </button>
+                        <button type="button" class="btn btn-success" onclick="window.location.href = 'home.html'">
+                            <h5>Exit Lesson</h5>
+                        </button>
 
-                            <i><p>scroll down to see AI comments</p></i>
-                        </div>
-
-                        <section class="output">
-                            <div>
-                                <textarea id="output" name="output" class="w-100" rows="15">
-                            </textarea>
-                            </div>
-                        </section>
+                        <i><p>scroll down to see AI comments</p></i>
                     </div>
+
+
                     <section class="input">
                         <div>
                             <textarea id="code" name="code"></textarea>
+                        </div>
+                    </section>
+
+                    <section class="output">
+                        <div>
+                            <textarea id="output" name="output" class="w-100" rows="15">
+                        </textarea>
                         </div>
                     </section>
 
