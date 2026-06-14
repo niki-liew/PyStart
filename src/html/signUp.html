@@ -72,7 +72,16 @@ button.addEventListener("click", async () => {
             uName: username || "anon",
             points: 0,
             onLesson: 1,
-            analysis: []
+            analysis: {
+                'l1': [],
+                'l2': [],
+                'l3': [],
+                'l4': [],
+                'l5': [],
+                'l6': [],
+                'l7': [],
+                'l8': [],
+            }
         });
 
         window.location.href = "home.html"

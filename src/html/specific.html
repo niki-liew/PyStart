@@ -123,12 +123,14 @@
                 )
             );
 
+            analysis[`l${select}`].push(startTime, Date.now(), score, '@')
+
             if (currentUID && select == onLesson) {
                 await addPoints(currentUID, score);
 
                 await updateData(currentUID, {
                     onLesson: onLesson + 1,
-                    analysis: analysis.push([select, startTime, Date.now(), score])
+                    analysis: analysis
                 });
             }
 
@@ -136,7 +138,7 @@
                 await addPoints(currentUID, score);
 
                 await updateData(currentUID, {
-                    analysis: analysis.push([select, startTime, Date.now(), score])
+                    analysis: analysis
                 });
             }
 
@@ -168,7 +170,7 @@
     let currentUID = null;
     let select = 1;
     let onLesson = 1;
-    let analysis = []
+    let analysis = {}
 
     let startTime = Date.now()
 
@@ -191,8 +193,7 @@
 
         onLesson = data.onLesson || 1
         select = data.select || 1
-        analysis = data.analysis || []
-
+        analysis = data.analysis
         
         if (!data.select)
         {
@@ -211,8 +212,28 @@
         if (!data.analysis)
         {
             await updateData(currentUID, {
-                analysis: []
+                analysis: {
+                'l1': [],
+                'l2': [],
+                'l3': [],
+                'l4': [],
+                'l5': [],
+                'l6': [],
+                'l7': [],
+                'l8': [],
+                }
             })
+
+            analysis = data.analysis || {
+                'l1': [],
+                'l2': [],
+                'l3': [],
+                'l4': [],
+                'l5': [],
+                'l6': [],
+                'l7': [],
+                'l8': [],
+            }
         }
 
         if (select == 1)
