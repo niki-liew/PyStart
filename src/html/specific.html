@@ -123,7 +123,14 @@
                 )
             );
 
-            analysis[`l${select}`].push(startTime, Date.now(), score, '@')
+            let comment = await sendMessage(
+                "This is the code that the user has written: " +
+                editor.getValue() +
+                " THIS IS THE END OF THE CODE. " +
+                "Please state what the user is good at doing, and state the areas that require improvement. limit your comments to 100 words"
+            )
+
+            analysis[`l${select}`].push(startTime, Date.now(), score, comment, '@')
 
             if (currentUID && select == onLesson) {
                 await addPoints(currentUID, score);
