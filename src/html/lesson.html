@@ -130,7 +130,7 @@
                 "Please state what the user is good at doing, and state the areas that require improvement. limit your comments to 100 words"
             )
 
-            analysis[`l${select}`].push(startTime, Date.now(), score, comment, '@')
+            analysis[`l${onLesson}`].push(startTime, Date.now(), score, comment, '@')
 
             if (currentUID) {
                 await addPoints(currentUID, score);
