@@ -37,7 +37,15 @@
 
     <div class="flexboxFill bgDarkBlue">
         <div class="divBackWanabe">
-            <h2>Analysis coming Soon!</h2>
+            <select id="lessonSelect"></select>
+
+            <div style="height:400px;">
+                <canvas id="lessonChart"></canvas>
+            </div>
+
+            <h2>Summarised AI Comments:</h2>
+
+            <h3 id="aiComments"></h3>
         </div>
 
         <div class="divBackWanabe">
@@ -50,14 +58,179 @@
     </div>
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"
+    integrity="sha512-XMlgZzPyVXf1I/wbGnofk1Hfdx+zAWyZjh6c21yGo/k1zNC4Ve6xcQnTDTCHrjFGsOrVicJsBURLYktVEu/8vQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/mode/python/python.min.js"
+    integrity="sha512-/mavDpedrvPG/0Grj2Ughxte/fsm42ZmZWWpHz1jCbzd5ECv8CB7PomGtw0NAnhHmE/lkDFkRMupjoohbKNA1Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="..\main.js"></script>
+<script src='..\bot.js'></script>
 <script>
 const welcText = document.getElementById("welcText");
 const statText = document.getElementById("statText");
 const leaderboardDiv = document.getElementById("leaderboard");
+const aiComments = document.getElementById("aiComments")
+
+let lessonChart = null;
+
+function getLessonComments(analysis, lesson) {
+    const data = analysis[lesson];
+
+    let comments = [];
+    let current = [];
+
+    for (const item of data) {
+        if (item === "@") {
+
+            if (current.length >= 4) {
+                const comment = current[3];
+                if (comment) comments.push(comment);
+            }
+
+            current = [];
+        } else {
+            current.push(item);
+        }
+    }
+
+    return comments.join(" ");
+}
+
+function generateGraphs(analysis) {
+
+    const select = document.getElementById("lessonSelect");
+
+    select.innerHTML = "";
+
+    Object.keys(analysis)
+    .sort((a, b) => {
+        const numA = parseInt(a.replace("l", ""));
+        const numB = parseInt(b.replace("l", ""));
+        return numA - numB;
+    })
+    .forEach(lesson => {
+        const option = document.createElement("option");
+        option.value = lesson;
+        option.textContent = lesson.toUpperCase();
+        select.appendChild(option);
+    });
+
+    async function loadLesson(lesson) {
+        const data = analysis[lesson];
+
+        const durations = [];
+        const scores = [];
+
+        let current = [];
+
+        for (const item of data) {
+            if (item === "@") {
+
+                if (current.length >= 3) {
+                    const startTime = Number(current[0]);
+                    const endTime = Number(current[1]);
+                    const score = Number(current[2]);
+
+                    durations.push(
+                        (endTime - startTime) / (1000 * 60)
+                    );
+
+                    scores.push(score);
+                }
+
+                current = [];
+            } else {
+                current.push(item);
+            }
+        }
+
+        if (lessonChart) {
+            lessonChart.destroy();
+        }
+
+        lessonChart = new Chart(
+            document.getElementById("lessonChart"),
+            {
+                type: "line",
+                data: {
+                    labels: durations.map((_, i) => `Attempt ${i + 1}`),
+                    datasets: [
+                        {
+                            label: "Duration (min)",
+                            data: durations,
+                            yAxisID: "durationAxis",
+                            tension: 0.2
+                        },
+                        {
+                            label: "Score",
+                            data: scores,
+                            yAxisID: "scoreAxis",
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    scales: {
+                        durationAxis: {
+                            type: "linear",
+                            position: "left",
+                            title: {
+                                display: true,
+                                text: "Minutes"
+                            }
+                        },
+
+                        scoreAxis: {
+                            type: "linear",
+                            position: "right",
+
+                            min: 0,
+                            max: 100,
+
+                            grid: {
+                                drawOnChartArea: false
+                            },
+
+                            title: {
+                                display: true,
+                                text: "Score"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+        if (getLessonComments(analysis, lesson) != "")
+        {
+            let comment = await sendMessage("Summarise the comments here to lesser than 150 words. Here are the comments: " + getLessonComments(analysis, lesson))
+
+            aiComments.innerHTML = comment
+        }
+        else
+        {
+            aiComments.innerHTML = ""
+        }
+    }
+
+    select.addEventListener("change", () => {
+        loadLesson(select.value);
+    });
+
+    if (select.options.length > 0) {
+        loadLesson(select.value);
+    }
+}
 
 auth.onAuthStateChanged(async user => {
 
@@ -89,6 +262,8 @@ auth.onAuthStateChanged(async user => {
     const points = data.points || 0;
     const onLesson = data.onLesson || 1
 
+    const analysis = data.analysis
+
     statText.innerHTML = `
         <h1>
             Account Age: ${ageDays} Days <br><br>
@@ -115,5 +290,10 @@ auth.onAuthStateChanged(async user => {
     });
 
     leaderboardDiv.innerHTML = html;
+
+    Chart.defaults.font.family = "Cascadia Mono, monospace";
+    Chart.defaults.color = "white";
+
+    generateGraphs(analysis);
 });
 </script>
